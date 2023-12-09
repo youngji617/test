@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>여러개 마커에 이벤트 등록하기</title>
+</head>
+<body>
+ 
+    <div id="map" style="width:75%;height:1250px;"></div>
+    <button>순서대로 보기</button>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84018afa33515b89b39933082bdd5383"></script>
+    <!-- 내 api key : 
+    84018afa33515b89b39933082bdd5383-->
+    <!-- ee9d9c5a78a2a17e69149c718830d3cf -->
+    <script charset="UTF-8" src="http://t1.daumcdn.net/mapjsapi/js/main/4.4.14/kakao.js"></script>
+    <script>
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+            mapOption = { 
+                center: new kakao.maps.LatLng(36.819908, 127.1765357), // 지도의 중심좌표
+                draggable: false, // 지도를 생성할때 지도 이동 및 확대/축소를 막으려면 draggable: false 옵션을 추가하세요
+                level: 5// 지도의 확대 레벨
+            };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+        mapContainer.addEventListener ('wheel', event => {
+        var currentLevel = map.getLevel();
+        var step = 1; //지도 level
+        var sign = Math.sign(event.deltaY);//스크롤 
+    
+        var changeLevel = currentLevel + step * sign;
+    
+        map.setLevel(changeLevel);
+        });
+        
+        // var zoomControl = new kakao.amps.ZoomControl();
+        // map.addControl(zoomControl, kakao.maps.ControlPosition.RIght)
+    //     function setZoomable(zoomable) {
+    // // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
+    //     map.setZoomable(zoomable);    
+    // };
+
+        var positions = [
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">고릴라 GYM 백석대점 <td><a href="https://map.naver.com/p/entry/place/1665245426?lng=127.1802421&lat=36.8406245&placePath=%2Fhome%3Fentry%3Dpll&c=15.00,0,0,0,dh" style="color:blue" target="_blank">영업정보</a> </div>', 
+                latlng: new kakao.maps.LatLng(36.8406476, 127.1802025)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">미녀와야수짐 안서점 <td><a href="https://map.naver.com/p/entry/place/1036519698?c=13.00,0,0,0,dh" style="color:blue" target="_blank">영업정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.829551, 127.177065)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">호짐 <td><a href="https://map.naver.com/p/entry/place/1782689725?c=16.26,0,0,0,dh" style="color:blue" target="_blank">영업정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.820667, 127.158419)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">MTO 피트니스 PT 신부점 <td><a href="https://map.naver.com/p/entry/place/1562989192?c=14.52,0,0,0,dh" style="color:blue" target="_blank">영업정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.8183261, 127.1601503)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">헬스보이짐&필라걸 신부점 <td><a href="https://map.naver.com/p/entry/place/1387774729?c=17.53,0,0,0,dh" style="color:blue" target="_blank">영업정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.818423, 127.152625)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">365짐 <td><a href="https://map.naver.com/p/entry/place/1490379364?c=14.76,0,0,0,dh" style="color:blue" target="_blank">영업정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.8332177, 127.1481177)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">피트니스넘버원 두정점 <td><a href="https://map.naver.com/p/entry/place/37653460?c=18.44,0,0,0,dh" style="color:blue" target="_blank">영업정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.8330548, 127.1430521)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">피트니스24<td><a href="https://map.naver.com/p/entry/place/1782966313?c=17.31,0,0,0,dh" style="color:blue" target="_blank">영업정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.8289369, 127.1433334)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">미녀와야수짐 두정점<td><a href="https://map.naver.com/p/entry/place/1895252142?c=15.19,0,0,0,dh" style="color:blue" target="_blank">영업정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.834074, 127.1355919)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">스포데이휘트니스 두정점<td><a href="https://map.naver.com/p/entry/place/1181819896?c=15.16,0,0,0,dh" style="color:blue" target="_blank">영업정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.8333065 ,127.1405462)
+            }, 
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">휘트니스휴 성성점<td><a href="https://map.naver.com/p/entry/place/1104206806?c=15.00,0,0,0,dh" style="color:blue" target="_blank">영업정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.8396723 ,127.1295637)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">스포데이휘트니스<td><a href="https://map.naver.com/p/entry/place/37753631?c=14.52,0,0,0,dh" style="color:blue" target="_blank">영업정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.824142 ,127.124044)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">리틀포레짐 천안성정점<td><a href="https://map.naver.com/p/entry/place/1536873954?c=16.34,0,0,0,dh" style="color:blue" target="_blank">영업정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.826177 ,127.141343)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">칠삼이사일<td><a href="https://map.naver.com/p/entry/place/1490244217?c=16.77,0,0,0,dh" style="color:blue" target="_blank">영업정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.819045 ,127.152770)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">고위드짐 쌍용점<td><a href="https://map.naver.com/p/entry/place/1597904228?c=13.80,0,0,0,dh" style="color:blue" target="_blank">영업정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.8074049 ,127.1304346)
+            },//헬스장
+
+
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">천호지 <td><a href="https://map.naver.com/p/entry/place/1133933276?c=15.33,0,0,0,dh" style="color:green" target="_blank">공원정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.8335164, 127.1705268)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">도솔광장 <td><a href="https://map.naver.com/p/entry/place/1618335824?c=13.93,0,0,0,dh" style="color:green" target="_blank">공원정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.8241161, 127.1621675)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">성성호수공원 <td><a href="https://map.naver.com/p/entry/place/17671487?c=13.44,0,0,0,dh" style="color:green" target="_blank">공원정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.8483206, 127.1387888)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">천안시민체육공원 <td><a href="https://map.naver.com/p/entry/place/1561651107?c=12.67,0,0,0,dh" style="color:green" target="_blank">공원정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.81329, 127.1126816)
+            },
+            {
+                content: '<div style="padding:5px;text-align:center;font-size:9.5px;">태조산공원 <td><a href="https://map.naver.com/p/entry/place/17634158?c=12.91,0,0,0,dh" style="color:green" target="_blank">공원정보 </a> </div>', 
+                latlng: new kakao.maps.LatLng(36.8223353 ,127.1902757)
+            }//공원
+        ];
+
+
+            // {
+            //     content: '<div style="padding:5px;text-align:center;font-size:9.5px;">천호지 <td><a href="https://map.naver.com/p/entry/place/1133933276?c=15.33,0,0,0,dh" style="color:blue" target="_blank">공원정보 </a> </div>', 
+            //     latlng: new kakao.maps.LatLng(36.8335164, 127.1705268)
+            // },
+            // {
+            //     content: '<div style="padding:5px;text-align:center;font-size:9.5px;">천호지 <td><a href="https://map.naver.com/p/entry/place/1133933276?c=15.33,0,0,0,dh" style="color:blue" target="_blank">공원정보 </a> </div>', 
+            //     latlng: new kakao.maps.LatLng(36.8335164, 127.1705268)
+            // },
+            // {
+            //     content: '<div style="padding:5px;text-align:center;font-size:9.5px;">천호지 <td><a href="https://map.naver.com/p/entry/place/1133933276?c=15.33,0,0,0,dh" style="color:blue" target="_blank">공원정보 </a> </div>', 
+            //     latlng: new kakao.maps.LatLng(36.8335164, 127.1705268)
+            // },
+             
+
+        for (var i = 0; i < positions.length; i ++) {
+            // 마커를 생성합니다
+            var marker = new kakao.maps.Marker({
+                map: map, // 마커를 표시할 지도
+                position: positions[i].latlng ,// 마커의 위치
+                clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+            });
+
+            // 마커에 표시할 인포윈도우를 생성합니다 
+            var infowindow = new kakao.maps.InfoWindow({
+                content: positions[i].content // 인포윈도우에 표시할 내용
+            });
+
+            // 마커에 클릭 이벤트를 등록합니다
+            kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
+        }
+
+        // 클릭 이벤트 핸들러를 만드는 함수
+        function makeClickListener(map, marker, infowindow) {
+            return function() {
+                // 마커 위에 인포윈도우를 열고 닫을 수 있도록 토글합니다
+                if (infowindow.getMap()) {
+                    infowindow.close();
+                } else {
+                    infowindow.open(map, marker);
+                }
+            };
+        }
+
+
+        map.setDraggable(true);
+       
+        console.log(positions.sort());
+    
+    </script>
+</body>
+</html>
