@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+   
+
+        .hide {
+            display: none;
+          }
+      
+          .show {
+            display: block;
+          }
+    
+</style>
+<body>
+    <table class="table"></table>
+    
+
+    <div id="buttons">
+        <input type="button" value="안서동" onclick="onClickPlace1()"><br>
+        <input type="button" value="신부동" onclick="onClickPlace2()"><br>
+        <input type="button" value="두정동" onclick="onClickPlace3()"><br>
+        <input type="button" value="성정동" onclick="onClickPlace4()"><br>
+        <input type="button" value="지도로보기" onclick="onClickMap()">
+    </div>
+
+ 
+        
+      <script>
+        const arr1 = ['고릴라짐', '미녀와야수짐 안서점'];
+        const arr2 = ['도솔광장', '호짐', 'MTO 피트니스 PT 신부점', '칠삼이사일', '헬스보이짐&필라걸 신부점'];
+        const arr3 = ['356짐', '스포데이휘트니스 두정점', '미녀와야주심 두정점', '피트니스넘버원 두정점'];
+        const arr4 = ['피트니스24', '리틀포레짐 천안성정점'];
+        document.write("다시 돌아가려면 새로고침");
+        
+        const $input = document.querySelectorAll('#buttons');
+
+        function placeSort(a, b) {
+            for(let i = 0; i<arr1.length; i++){
+                document.write(placeSort[i]);
+            }
+        }
+
+        
+        const onClickPlace1 = () => {
+            placeSort();
+            onClickPlace1.classList.remove('hide');
+            onClickPlace1.classList.add('show');
+            }
+     
+        const onClickPlace2 = () => {
+            placeSort();
+            onClickPlace1.classList.remove('hide');
+            onClickPlace1.classList.add('show');
+            }
+
+            const onClickPlace3 = () => {
+            placeSort();
+            onClickPlace1.classList.remove('hide');
+            onClickPlace1.classList.add('show');
+            }
+
+            const onClickPlace4 = () => {
+            placeSort();
+            onClickPlace1.classList.remove('hide');
+            onClickPlace1.classList.add('show');
+            }
+
+        const onClickMap = () => {
+            window.location.href = "http://127.0.0.1:5500"
+        }
+
+        
+        $button.addEventListener('click', onClickPlace1);
+        $button.addEventListener('click', onClickPlace2);
+        $button.addEventListener('click', onClickPlace3);
+        $button.addEventListener('click', onClickPlace4);
+        $button.addEventListener("click", onClickMap);
+
+        </script>
+</body>
+</html>
