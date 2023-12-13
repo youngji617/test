@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <h1>운동 시간 타이머</h1>
+  <p id="timer">0</p>
+  <button onclick="PauseStart()">일시정지/재생</button>
+
+  <script>
+    const timer = document.getElementById('timer');
+    let seconds = 0;
+    let valid;
+    let isPaused = false;
+
+    function updateTimer() {
+      seconds++;
+      time.textContent = seconds;
+    }
+
+    function startTimer() {
+      valid= setInterval(() => {
+        if (!isPaused) {
+          updateTimer();
+        }
+      }, 1000);
+    }
+
+    function PauseStart() {
+      const button = document.querySelector('button');
+      const btnText = button.textContent;
+
+      if (btnText === '일시정지') {
+        isPaused = true;
+        button.textContent = '재생';
+      } else {
+        isPaused = false;
+        startTimer();
+        button.textContent = '일시정지';
+      }
+    }
+
+    startTimer();
+  </script>
+</body>
+</html>
