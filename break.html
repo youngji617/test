@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>타이머</title>
+</head>
+<body>
+  <h1>휴식시간 타이머</h1>
+  <p id="timer">0</p>
+  <button onclick="StartPause()">재생</button>
+
+  <script>
+    const timerDisplay = document.getElementById('timer');
+    let seconds = 0;
+    let valid;
+    let Paused = true;
+    let pauseTime = 10 * 60; // 10분을 초 단위로 계산
+
+    function updateTimer() {
+      seconds--;
+      if (seconds <= 0) {
+        clearInterval(valid);
+        Paused = true;
+        document.querySelector('button').textContent = '재생';
+      }
+      timerDisplay.textContent = timeSet(seconds);
+    }
+
+    function startTimer() {
+      valid = setInterval(() => {
+        if (!Paused) {
+          updateTimer();
+        }
+      }, 1000);
+    }
+
+    function StartPause() {
+      if (Paused && seconds <= 0) {
+        Paused = false;
+        seconds = pauseTime;
+        startTimer();
+        document.querySelector('button').textContent = '일시정지';
+      } else {
+        alert('10분 동안 휴식이 진행 중입니다.');
+      }
+    }
+
+    function timeSet(sec) {
+      const minutes = Math.floor(sec / 60);
+      const remainingSeconds = sec % 60;
+      return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+    }
+
+    // 초기화
+    timerDisplay.textContent = timeSet(pauseTime);
+  </script>
+</body>
+</html>
+
