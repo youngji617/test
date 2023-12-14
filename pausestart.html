@@ -6,42 +6,50 @@
 <body>
   <h1>운동 시간 타이머</h1>
   <p id="timer">0</p>
-  <button onclick="PauseStart()">일시정지/재생</button>
+  <button onclick="PauseStart()">재생</button>
 
   <script>
-    const timer = document.getElementById('timer');
+    const timerShow = document.getElementById('timer');
     let seconds = 0;
     let valid;
-    let isPaused = false;
+    let Paused = true;
+	let startTime = 10 * 60;
 
-    function updateTimer() {
-      seconds++;
-      time.textContent = seconds;
-    }
+    function update() {
+      seconds--;
+	  if(seconds <= 0){
+		clearInterval(valid);
+		Paused = true;
+		document.querySelector('button').textContent = '재생';
+	  }
+	  timerShow.textContent = timeSet(seconds);
+	}
 
     function startTimer() {
       valid= setInterval(() => {
-        if (!isPaused) {
-          updateTimer();
+        if (!Paused) {
+          update();
         }
       }, 1000);
     }
 
-    function PauseStart() {
-      const button = document.querySelector('button');
-      const btnText = button.textContent;
-
-      if (btnText === '일시정지') {
-        isPaused = true;
-        button.textContent = '재생';
-      } else {
-        isPaused = false;
-        startTimer();
-        button.textContent = '일시정지';
-      }
-    }
-
-    startTimer();
+    function Start() {
+		if(Paused && seconds <= 0){
+		Paused = false;
+		seconds = startTime;
+		startTimer();
+		document.querySelector('button').textContent = '일시정지';
+	}else {
+		alert('운동시간이 다 끝나야 일시정지/재생 가능.');
+	}
+	
+}
+	function timeSet(sec){
+		const minutes = Math.floor(sec / 60);
+		const remainingSeconds = sec % 60;
+		return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`
+		}
+    timerShow.textContent = timeSet(startTime);
   </script>
 </body>
 </html>
